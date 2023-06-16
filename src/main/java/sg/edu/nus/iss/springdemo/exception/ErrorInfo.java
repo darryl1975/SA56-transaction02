@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.springdemo.exception;
 
+import lombok.Data;
+
+@Data
 public class ErrorInfo {
     private final String url;
     private final String ex;
