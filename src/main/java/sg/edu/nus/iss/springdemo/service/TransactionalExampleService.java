@@ -3,7 +3,9 @@ package sg.edu.nus.iss.springdemo.service;
 import java.util.List;
 
 import javax.transaction.Transactional;
-
+// import org.springframework.transaction.annotation.Transactional;
+// import org.springframework.transaction.annotation.Isolation;
+// import org.springframework.transaction.annotation.Propagation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,21 @@ import sg.edu.nus.iss.springdemo.model.User;
 import sg.edu.nus.iss.springdemo.repo.NoteRepo;
 import sg.edu.nus.iss.springdemo.repo.UserRepo;
 
+// Propagation level
+// REQUIRED  (Default)
+// SUPPORTS
+// NOT_SUPPORTED
+// REQUIRES_NEW
+// NEVER
+// MANDATORY
+
+// Isolation rules --> ACID (Atomicity, consistency, Isolation, Durability)
+// SERIALIZABLE
+// REPEATABLE_READ
+// READ_COMMITED
+
 @Service
+@Transactional
 public class TransactionalExampleService {
     @Autowired
     UserRepo userRepo;
@@ -20,9 +36,10 @@ public class TransactionalExampleService {
     @Autowired
     NoteRepo noteRepo;
 
-    @Transactional
+    // @Transactional
     public Boolean addUserWithNotes(User user, List<Note> notes) throws Exception {
 
+        // record is saved and created in user table
         User createdUser = userRepo.save(user);
 
         List<Note> noteListEnt = notes;
@@ -32,6 +49,7 @@ public class TransactionalExampleService {
 
         // throw new Exception("Simulate error after creating user");
         
+        // save all notes (linked to a user) in Note table
         List<Note> savedNoteList = noteRepo.saveAll(noteListEnt);
 
         // throw new Exception("Simulate error after creating user notes");

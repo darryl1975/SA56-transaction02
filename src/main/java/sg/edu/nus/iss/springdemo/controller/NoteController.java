@@ -35,6 +35,7 @@ public class NoteController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(notes, HttpStatus.OK);
+            // return ResponseEntity.ok().body(notes);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
